@@ -15,7 +15,7 @@ import java.util.Timer;
 
 public class twobythree extends AppCompatActivity {
 
-    ImageButton[] mole = new ImageButton[5];
+    ImageButton[] mole = new ImageButton[6];
     TextView timer, score;
     int scoreCount;
 
@@ -30,13 +30,14 @@ public class twobythree extends AppCompatActivity {
         mole[3] = (ImageButton) findViewById(R.id.imageButton9);
         mole[4] = (ImageButton) findViewById(R.id.imageButton10);
         mole[5] = (ImageButton) findViewById(R.id.imageButton2);
-        timer = (TextView) findViewById(R.id.textView);
-        score = (TextView) findViewById(R.id.textView2);
+        timer = (TextView) findViewById(R.id.textView2);
+        score = (TextView) findViewById(R.id.textView);
         for (int i = 0; i < 6; i++) {
             mole[i].setVisibility(View.INVISIBLE);
         }
-        new CountDownTimer(1000, 1000) {
+        new CountDownTimer(60000, 1000) {
             public void onTick(long timeLeft) {
+                timer.setText("" + timeLeft/1000);
                 if (timeLeft / 1000 % 3 == 0) {
                     for (int i = 0; i < mole.length; i++)
                         mole[i].setVisibility(View.INVISIBLE);
@@ -44,16 +45,16 @@ public class twobythree extends AppCompatActivity {
                     int a = rand.nextInt(6);
                     mole[a].setVisibility(View.VISIBLE);
                 }
-            }
+            };
 
-            public void onFinish() {
+            public void onFinish()
 
                 {
                     gameOver();
-                }
+                };
 
 
-            }
+
         }.start();
     }
 
@@ -61,13 +62,13 @@ public class twobythree extends AppCompatActivity {
             Intent congratulations = new Intent(this, endScreen.class);
             String statement = score.getText().toString();
             congratulations.putExtra(MainActivity.Bye, statement);
+            startActivity(congratulations);
         }
         public void onClick(View view) {
-        for ( int i = 0; i < mole.length; i++){
+        for ( int i = 0; i < mole.length; i++)
             mole[i].setVisibility(View.INVISIBLE);
             scoreCount++;
             score.setText("Score: " + scoreCount);
-        }
         }
     }
 

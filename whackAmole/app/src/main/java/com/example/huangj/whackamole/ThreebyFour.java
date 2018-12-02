@@ -15,7 +15,7 @@ import java.util.Timer;
 
 public class ThreebyFour extends AppCompatActivity {
 
-    ImageButton[] mole = new ImageButton[11];
+    ImageButton[] mole = new ImageButton[12];
     TextView timer, score;
     int scoreCount;
 
@@ -37,12 +37,13 @@ public class ThreebyFour extends AppCompatActivity {
         mole[10] = (ImageButton) findViewById(R.id.imageButton3);
         mole[11] = (ImageButton) findViewById(R.id.imageButton4);
         timer = (TextView) findViewById(R.id.textView);
-        score = (TextView) findViewById(R.id.textView2);
+        score = (TextView) findViewById(R.id.textView4);
         for (int i = 0; i < 12; i++) {
             mole[i].setVisibility(View.INVISIBLE);
         }
-        new CountDownTimer(1000, 1000) {
+        new CountDownTimer(60000, 1000) {
             public void onTick(long timeLeft) {
+                timer.setText("" + timeLeft/1000);
                 if (timeLeft / 1000 % 3 == 0) {
                     for (int i = 0; i < mole.length; i++)
                         mole[i].setVisibility(View.INVISIBLE);
@@ -67,13 +68,15 @@ public class ThreebyFour extends AppCompatActivity {
         Intent congratulations = new Intent(this, endScreen.class);
         String statement = score.getText().toString();
         congratulations.putExtra(MainActivity.Bye, statement);
+        startActivity(congratulations);
     }
     public void onClick(View view) {
         for ( int i = 0; i < mole.length; i++){
-            mole[i].setVisibility(View.INVISIBLE);
+            mole[i].setVisibility(View.INVISIBLE);}
             scoreCount++;
             score.setText("Score: " + scoreCount);
-        }
+
     }
 }
+
 
